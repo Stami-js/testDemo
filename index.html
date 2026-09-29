@@ -178,10 +178,14 @@
       ).then((widget) => {
         widget.on("newRTCSession", (session) => {
           session.on("newInfo", (infoEvent) => {
-            console.log("originator:", infoEvent.originator);
-            console.log("info:", infoEvent.info);
-            console.log("request:", infoEvent.request);
-            console.log("request body:", infoEvent.request?.body);
+            try {
+              const.body = JSON.parse(infoEvent.request.body);
+              if(body.navigateTo){
+                window.location.href = body.navigateTo;
+              }
+            } catch (e) {
+              console.log("Could not parse infoEvent body: " e);
+            }
           });
         });
       });
