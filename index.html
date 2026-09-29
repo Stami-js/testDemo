@@ -178,9 +178,10 @@
       ).then((widget) => {
         widget.on("newRTCSession", (session) => {
           session.on("newInfo", (infoEvent) => {
-            console.log("infoEvent keys:", Object.keys(infoEvent));
-            console.log("infoEvent._request:", infoEvent?._request);
-            console.log("infoEvent._request?.body:", infoEvent._request?.body);
+            console.log("originator:", infoEvent.originator);
+            console.log("info:", infoEvent.info);
+            console.log("request:", infoEvent.request);
+            console.log("request body:", infoEvent.request?.body);
           });
         });
       });
