@@ -179,7 +179,7 @@
         widget.on("newRTCSession", (session) => {
           session.on("newInfo", (infoEvent) => {
             try {
-              const.body = JSON.parse(infoEvent.request.body);
+              const body = JSON.parse(infoEvent.request.body);
               if(body.navigateTo){
                 window.location.href = body.navigateTo;
               }
