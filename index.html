@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELO Rewards</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:    #0a2342;
+  --blue2:   #0d2d50;
+  --teal:    #00b4c8;
+  --teal2:   #00d4e8;
+  --gold:    #f0b429;
+  --white:   #ffffff;
+  --bg:      #f2f6f9;
+  --surface: #ffffff;
+  --border:  #dce6ef;
+  --muted:   #6b8ca8;
+  --text:    #1a2b3c;
+  --green:   #22c55e;
+  --radius:  12px;
+  --nav-h:   58px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Compliance ─────────────────────────────────────── */
+#compliance {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 9px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+#compliance-strip {
+  background: #fff;
+  color: #222;
+  font-size: 10.5px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 16px;
+  letter-spacing: .05em;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ── Nav ────────────────────────────────────────────── */
+#topnav {
+  background: var(--blue);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.01em;
+  cursor: pointer;
+  margin-right: 36px;
+  user-select: none;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--teal); }
+.nav-links { display: flex; gap: 4px; flex: 1; }
+.nav-link {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.55);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color .15s, background .15s;
+}
+.nav-link:hover { color: #fff; background: rgba(255,255,255,.08); }
+.nav-link.active { color: #fff; background: rgba(0,180,200,.18); }
+.pts-chip {
+  margin-left: auto;
+  background: rgba(0,180,200,.15);
+  border: 1px solid rgba(0,180,200,.4);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 100px;
+  letter-spacing: .04em;
+}
+
+/* ── Page shell ─────────────────────────────────────── */
+#app { flex: 1; display: flex; flex-direction: column; }
+.page { display: none; flex: 1; flex-direction: column; animation: fadeIn .22s ease; }
+.page.active { display: flex; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
+
+/* ══════════════════════════════════════════════════════
+   HOME PAGE
+══════════════════════════════════════════════════════ */
+#page-home {
+  padding: 32px 28px;
+  gap: 28px;
+  position: relative; /* for the CTC button */
+}
+
+.home-hero {
+  background: linear-gradient(130deg, var(--blue) 0%, #1a4a6e 100%);
+  border-radius: 20px;
+  padding: 32px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+.hero-left { display: flex; flex-direction: column; gap: 6px; }
+.hero-greeting { font-size: 13px; color: rgba(255,255,255,.5); }
+.hero-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+.hero-meta { font-size: 12.5px; color: rgba(255,255,255,.4); margin-top: 2px; }
+.hero-right { text-align: right; flex-shrink: 0; }
+.hero-pts-label { font-size: 11px; color: rgba(255,255,255,.45); letter-spacing: .06em; margin-bottom: 4px; }
+.hero-pts {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+}
+.hero-pts-unit { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+.home-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.action-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition: box-shadow .15s, transform .15s, border-color .15s;
+}
+.action-card:hover {
+  box-shadow: 0 4px 20px rgba(0,180,200,.12);
+  border-color: var(--teal);
+  transform: translateY(-2px);
+}
+.action-icon { font-size: 26px; }
+.action-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+.action-desc { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.action-arrow { font-size: 18px; color: var(--teal); margin-top: auto; align-self: flex-end; }
+
+.home-activity {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.activity-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.activity-row:last-child { border-bottom: none; }
+.activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.activity-dot.earn { background: var(--green); }
+.activity-dot.redeem { background: var(--teal); }
+.activity-text { flex: 1; font-size: 13.5px; }
+.activity-sub { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.activity-pts { font-size: 13px; font-weight: 600; }
+.activity-pts.earn { color: var(--green); }
+.activity-pts.redeem { color: var(--teal); }
+
+/* ══════════════════════════════════════════════════════
+   REWARDS PAGE
+══════════════════════════════════════════════════════ */
+#page-rewards { padding: 32px 28px; gap: 24px; }
+
+.rewards-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.rewards-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.rewards-sub { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+.source-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,180,200,.08);
+  border: 1px solid rgba(0,180,200,.25);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  color: var(--teal);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.url-debug {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: monospace;
+  word-break: break-all;
+}
+.url-debug strong { font-size: 10.5px; letter-spacing: .04em; color: var(--text); display: block; margin-bottom: 3px; font-family: 'Inter', sans-serif; }
+
+.gifts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+.gift-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow .15s, transform .15s;
+  animation: fadeIn .3s ease both;
+}
+.gift-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,.09);
+  transform: translateY(-3px);
+}
+.gift-card-img {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 46px;
+}
+.gift-card-body { padding: 14px 16px 18px; }
+.gift-card-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+.gift-card-type { font-size: 11.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+.gift-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pts-needed { font-size: 13px; font-weight: 600; color: var(--teal); }
+.pts-status {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.pts-status.ok { background: rgba(34,197,94,.1); color: var(--green); }
+.pts-status.low { background: rgba(240,180,41,.1); color: var(--gold); }
+
+.rewards-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+.rewards-empty-icon { font-size: 48px; margin-bottom: 16px; }
+.rewards-empty-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.rewards-empty p { font-size: 13.5px; }
+
+/* ══════════════════════════════════════════════════════
+   PROFILE PAGE
+══════════════════════════════════════════════════════ */
+#page-profile { padding: 32px 28px; gap: 24px; }
+
+.profile-hero {
+  background: linear-gradient(130deg, var(--blue) 0%, #1a4a6e 100%);
+  border-radius: 20px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.profile-avatar-lg {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), #006fa8);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+  border: 3px solid rgba(255,255,255,.2);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.profile-hero-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px; font-weight: 700; color: #fff;
+}
+.profile-hero-email { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 3px; }
+.profile-hero-meta { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 8px; }
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.profile-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+}
+.profile-section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid #f0f4f7;
+}
+.profile-row:last-child { border-bottom: none; }
+.pr-label { font-size: 13px; color: var(--muted); }
+.pr-value { font-size: 13px; font-weight: 500; }
+.pr-value.teal { color: var(--teal); }
+
+/* ── Cognigy Click-to-Call widget positioning override ── */
+/* The widget injects its own button; we nudge it bottom-right */
+#ctc-wrapper {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 500;
+}
+</style>
+</head>
+<body>
+
+<div id="compliance">WARNING: This product contains nicotine. Nicotine is an addictive chemical.</div>
+<div id="compliance-strip">
+  <span>UNDERAGE SALE PROHIBITED</span>
+  <span>NICOTINE POUCHES</span>
+</div>
+
+<nav id="topnav">
+  <div class="nav-logo" onclick="nav('home')">V<span>ELO</span></div>
+  <div class="nav-links">
+    <button class="nav-link" data-page="home"    onclick="nav('home')">Home</button>
+    <button class="nav-link" data-page="rewards" onclick="nav('rewards')">My Rewards</button>
+    <button class="nav-link" data-page="checkout" onclick="nav('checkout')">Checkout</button>
+    <button class="nav-link" data-page="profile" onclick="nav('profile')">Profile</button>
+  </div>
+  <div class="pts-chip">585 PTS</div>
+</nav>
+
+<div id="app">
+
+  <!-- ══ HOME ══════════════════════════════════════════ -->
+  <div class="page active" id="page-home">
+
+    <div class="home-hero">
+      <div class="hero-left">
+        <div class="hero-greeting">Welcome back,</div>
+        <div class="hero-name">Demo User</div>
+        <div class="hero-meta">Member since Jan 2023 · Age verified 21+</div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-pts-label">YOUR BALANCE</div>
+        <div class="hero-pts">585</div>
+        <div class="hero-pts-unit">points</div>
+      </div>
+    </div>
+
+    <div class="home-actions">
+      <div class="action-card" onclick="nav('rewards')">
+        <div class="action-icon">🎁</div>
+        <div class="action-title">My Rewards</div>
+        <div class="action-desc">Browse your personalized gift catalog from your last voice session.</div>
+        <div class="action-arrow">→</div>
+      </div>
+      <div class="action-card" onclick="nav('profile')">
+        <div class="action-icon">👤</div>
+        <div class="action-title">Profile</div>
+        <div class="action-desc">View your account details, points history and preferences.</div>
+        <div class="action-arrow">→</div>
+      </div>
+      <div class="action-card" onclick="triggerCTC()">
+        <div class="action-icon">🎙️</div>
+        <div class="action-title">Voice Concierge</div>
+        <div class="action-desc">Speak with your AI rewards assistant to redeem points by voice.</div>
+        <div class="action-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="home-activity">
+      <div class="section-title">Recent activity</div>
+      <div class="activity-row">
+        <div class="activity-dot earn"></div>
+        <div class="activity-text">Tobacco Preference Survey<div class="activity-sub">Sep 14, 2026</div></div>
+        <div class="activity-pts earn">+100 pts</div>
+      </div>
+      <div class="activity-row">
+        <div class="activity-dot earn"></div>
+        <div class="activity-text">Pack code — Citrus Chill<div class="activity-sub">Sep 12, 2026</div></div>
+        <div class="activity-pts earn">+35 pts</div>
+      </div>
+      <div class="activity-row">
+        <div class="activity-dot earn"></div>
+        <div class="activity-text">Short video — Product spotlight<div class="activity-sub">Sep 10, 2026</div></div>
+        <div class="activity-pts earn">+150 pts</div>
+      </div>
+      <div class="activity-row">
+        <div class="activity-dot redeem"></div>
+        <div class="activity-text">VELO Mobile Coupon redeemed<div class="activity-sub">Aug 28, 2026</div></div>
+        <div class="activity-pts redeem">−550 pts</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ REWARDS ════════════════════════════════════════ -->
+  <div class="page" id="page-rewards">
+    <div class="rewards-header">
+      <div>
+        <div class="rewards-title">Your Personalized Rewards</div>
+        <div class="rewards-sub" id="rewardsSub">Recommended by your Voice Concierge session</div>
+      </div>
+      <div class="source-badge">📡 via Cognigy.AI</div>
+    </div>
+    <div class="url-debug" id="urlDebug">
+      <strong>QUERY PARAMS RECEIVED</strong>
+      <span id="urlDebugVal">—</span>
+    </div>
+    <div class="gifts-grid" id="giftsGrid"></div>
+  </div>
+
+  <!-- ══ Checkout ════════════════════════════════════════ -->
+  <div class="page" id="page-checkout">
+    <div class="rewards-header">
+      <div>
+        <div class="rewards-title">Checkout</div>
+        <div class="rewards-sub" id="rewardsSub">Review your selected rewards before redeeming</div>
+      </div>
+      <div class="source-badge">📡 via Cognigy.AI</div>
+    </div>
+    <div class="url-debug" id="urlDebug">
+      <strong>QUERY PARAMS RECEIVED</strong>
+      <span id="urlDebugVal">—</span>
+    </div>
+    <div class="gifts-grid" id="giftsGrid"></div>
+  </div>
+
+  <!-- ══ PROFILE ════════════════════════════════════════ -->
+  <div class="page" id="page-profile">
+    <div class="profile-hero">
+      <div class="profile-avatar-lg">D</div>
+      <div>
+        <div class="profile-hero-name">Demo User</div>
+        <div class="profile-hero-email">demo@velo-rewards.com</div>
+        <div class="profile-hero-meta">Member since January 2023 · Age verified 21+ · US resident</div>
+      </div>
+    </div>
+    <div class="profile-grid">
+      <div class="profile-section">
+        <div class="profile-section-title">Account details</div>
+        <div class="profile-row"><span class="pr-label">Username</span><span class="pr-value">demo</span></div>
+        <div class="profile-row"><span class="pr-label">Email</span><span class="pr-value">demo@velo-rewards.com</span></div>
+        <div class="profile-row"><span class="pr-label">Phone</span><span class="pr-value">+1 (555) 012-3456</span></div>
+        <div class="profile-row"><span class="pr-label">State</span><span class="pr-value">New York, NY</span></div>
+        <div class="profile-row"><span class="pr-label">Age verified</span><span class="pr-value teal">✓ 21+</span></div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">Points summary</div>
+        <div class="profile-row"><span class="pr-label">Current balance</span><span class="pr-value teal">585 pts</span></div>
+        <div class="profile-row"><span class="pr-label">Lifetime earned</span><span class="pr-value">3,240 pts</span></div>
+        <div class="profile-row"><span class="pr-label">Lifetime redeemed</span><span class="pr-value">2,655 pts</span></div>
+        <div class="profile-row"><span class="pr-label">Codes this month</span><span class="pr-value">2 of 30</span></div>
+        <div class="profile-row"><span class="pr-label">Member tier</span><span class="pr-value">Standard</span></div>
+      </div>
+      <div class="profile-section">
+        <div class="profile-section-title">Preferences</div>
+        <div class="profile-row"><span class="pr-label">Favourite flavour</span><span class="pr-value">Citrus Chill</span></div>
+        <div class="profile-row"><span class="pr-label">Strength</span><span class="pr-value">6mg</span></div>
+        <div class="profile-row"><span class="pr-label">Communication</span><span class="pr-value">Email + SMS</span></div>
+        <div class="profile-row"><span class="pr-label">Reward preference</span><span class="pr-value">Gift cards</span></div>
+      </div>
+      <div class="profile-section" style="display:flex;flex-direction:column;gap:10px;justify-content:center;">
+        <button onclick="nav('rewards')" style="background:none;border:1.5px solid var(--border);border-radius:10px;padding:11px 18px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:border-color .15s,color .15s;color:var(--text)" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">View my rewards</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- ── Cognigy Click-to-Call widget ──────────────────── -->
+<div id="ctc-wrapper"></div>
+<script src="https://github.com/Cognigy/click-to-call-widget/releases/latest/download/webRTCWidget.js"></script>
+<script>
+  addEventListener("load", () => {
+    if (window.initWebRTCWidget) {
+      window.initWebRTCWidget(
+        "https://endpoint-trial.cognigy.ai/50d9c7d030fcacc1bfe5767ac8139ca893fd37cfde060b5e8e7f5590122b5c0b"
+      ).then((widget) => {
+        widget.on("newRTCSession", (session) => {
+          session.on("newInfo", (infoEvent) => {
+            console.log("New info received:", JSON.stringify(infoEvent, null, 2));
+
+            const url = infoEvent?.info?.navigateTo;
+            if(url){
+              window.location.href = url;
+            }
+          });
+        });
+      });
+    }
+  });
+
+</script>
+
+<script>
+// ─── Prize catalog (source of truth) ─────────────────────────────────────
+const PRIZE_LIST = [
+  { id: 'p01', name: 'VELO Mobile Coupon',                     type: 'Own product coupon',                    points: 550,   icon: '🏷️' },
+  { id: 'p02', name: 'Quick Eats Digital Gift Cards',           type: 'Quick-service restaurants',             points: 2500,  icon: '🍔' },
+  { id: 'p03', name: 'Retail and Apparel Digital Gift Cards',   type: 'Retail and apparel stores',             points: 2500,  icon: '👕' },
+  { id: 'p04', name: 'The Home Depot Digital Gift Card',        type: 'Home improvement supplies and tools',   points: 2500,  icon: '🔨' },
+  { id: 'p05', name: 'Jiffy Lube $15 Digital Gift Card',        type: 'Oil changes and vehicle maintenance',   points: 7500,  icon: '🔧' },
+  { id: 'p06', name: 'Fandango Digital Gift Card',              type: 'Movie tickets and concessions',         points: 12500, icon: '🎬' },
+  { id: 'p07', name: 'UNTUCKit Digital Gift Card',              type: 'Shirts and apparel',                    points: 12500, icon: '👔' },
+  { id: 'p08', name: 'Vudu Digital Gift Card',                  type: 'Movies and TV shows',                   points: 12500, icon: '📺' },
+  { id: 'p09', name: 'Entertainment Digital Gift Cards',        type: 'Variety of entertainment venues',       points: 2500,  icon: '🎭' },
+  { id: 'p10', name: 'Fanatics Digital Gift Card',              type: 'Sports merchandise and apparel',        points: 2500,  icon: '🏆' },
+  { id: 'p11', name: 'Fuel Digital Gift Cards',                 type: 'Fuel at gas stations',                  points: 2500,  icon: '⛽' },
+  { id: 'p12', name: 'Gifts and Food Delivery Digital Gift Cards', type: 'Gifts and food delivery services',  points: 2500,  icon: '🚚' },
+  { id: 'p13', name: 'Grocery Choice Prepaid Mastercard',       type: 'Groceries',                             points: 2500,  icon: '💳' },
+  { id: 'p14', name: 'Grocery Digital Gift Cards',              type: 'Groceries',                             points: 2500,  icon: '🛒' },
+  { id: 'p15', name: 'Home & Auto Digital Gift Cards',          type: 'Home and auto supplies',                points: 2500,  icon: '🏠' },
+  { id: 'p16', name: 'PetSmart Digital Gift Card',              type: 'Pet supplies and services',             points: 2500,  icon: '🐾' },
+];
+
+const MEMBER_POINTS = 585;
+
+// ─── Router ───────────────────────────────────────────────────────────────
+function nav(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const link = document.querySelector(`.nav-link[data-page="${page}"]`);
+  if (link) link.classList.add('active');
+
+  if (page === 'rewards') renderRewards();
+  if (page === 'checkout') renderRewards();
+
+  // Update hash without triggering hashchange loop
+  history.replaceState(null, '', window.location.pathname + window.location.search + '#/' + page);
+}
+
+// ─── Rewards renderer ─────────────────────────────────────────────────────
+// Cognigy calls this page as:
+//   yourapp.html#/rewards?ids=p01,p04,p06
+// or via plain query string:
+//   yourapp.html?ids=p01,p04,p06
+// We check both.
+function getIdsFromURL() {
+  // 1. Try query string on the full URL
+  let params = new URLSearchParams(window.location.search);
+  if (params.get('ids')) return params.get('ids');
+
+  // 2. Try query string embedded in the hash (e.g. #/rewards?ids=...)
+  const hash = window.location.hash;
+  const qi = hash.indexOf('?');
+  if (qi > -1) {
+    params = new URLSearchParams(hash.slice(qi));
+    if (params.get('ids')) return params.get('ids');
+  }
+  return '';
+}
+
+function renderRewards() {
+  const raw  = getIdsFromURL();
+  const grid = document.getElementById('giftsGrid');
+  const sub  = document.getElementById('rewardsSub');
+  const dbg  = document.getElementById('urlDebugVal');
+
+  grid.innerHTML = '';
+
+  if (!raw) {
+    dbg.textContent = 'No ids param received yet.  Expected: ?ids=p01,p03,p06';
+    sub.textContent = 'Complete a voice session to see your recommendations';
+    grid.innerHTML = `
+      <div class="rewards-empty">
+        <div class="rewards-empty-icon">🎁</div>
+        <div class="rewards-empty-title">No rewards yet</div>
+        <p>Speak with your Voice Concierge — your personalized gift list will appear here.</p>
+      </div>`;
+    return;
+  }
+
+  dbg.textContent = '?ids=' + raw;
+
+  const ids   = raw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+  const found = ids.map(id => PRIZE_LIST.find(p => p.id === id)).filter(Boolean);
+
+  if (!found.length) {
+    dbg.textContent += '  ← no matching IDs in catalog';
+    grid.innerHTML = `
+      <div class="rewards-empty">
+        <div class="rewards-empty-icon">🤔</div>
+        <div class="rewards-empty-title">No matching rewards</div>
+        <p>The IDs received didn't match the catalog. Check the Cognigy flow output.</p>
+      </div>`;
+    return;
+  }
+
+  sub.textContent = `${found.length} reward${found.length > 1 ? 's' : ''} recommended by your Voice Concierge`;
+
+  // Pastel backgrounds cycling per card
+  const palettes = [
+    '#e6f4ff','#e6fff4','#fff8e6','#f4e6ff','#ffe6e6',
+    '#e6fffa','#fff0e6','#f0f4ff','#e6ffe6','#ffe6f4',
+  ];
+
+  found.forEach((gift, i) => {
+    const canAfford = MEMBER_POINTS >= gift.points;
+    const bg = palettes[i % palettes.length];
+    const card = document.createElement('div');
+    card.className = 'gift-card';
+    card.style.animationDelay = (i * 55) + 'ms';
+    card.innerHTML = `
+      <div class="gift-card-img" style="background:${bg}">${gift.icon}</div>
+      <div class="gift-card-body">
+        <div class="gift-card-name">${gift.name}</div>
+        <div class="gift-card-type">${gift.type}</div>
+        <div class="gift-card-footer">
+          <span class="pts-needed">From ${gift.points.toLocaleString()} pts</span>
+          <span class="pts-status ${canAfford ? 'ok' : 'low'}">${canAfford ? '✓ Unlocked' : 'Save up'}</span>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ─── CTC helper (action card click) ──────────────────────────────────────
+function triggerCTC() {
+  // Try to programmatically click the Cognigy widget button if it rendered
+  const btn = document.querySelector('[class*="cognigy"], [id*="cognigy"], [class*="ctc"], [id*="ctc"], button[class*="webrtc"]');
+  if (btn) { btn.click(); return; }
+  // Fallback — widget may still be loading
+  alert('Voice Concierge is loading. Please try the microphone button in the bottom-right corner.');
+}
+
+// ─── Initial routing on load ──────────────────────────────────────────────
+window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  // Check if Cognigy navigated us to #/rewards?ids=...
+  if (hash.startsWith('#/rewards')) {
+    nav('rewards');
+  } else if (hash.startsWith('#/profile')) {
+    nav('profile');
+  } else {
+    nav('home');
+    // Also mark home link active
+    document.querySelector('.nav-link[data-page="home"]').classList.add('active');
+  }
+});
+
+// React if Cognigy changes the URL hash after page load
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#/rewards')) nav('rewards');
+  else if (hash.startsWith('#/profile')) nav('profile');
+  else nav('home');
+});
+</script>
+</body>
+</html>
