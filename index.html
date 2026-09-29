@@ -559,7 +559,7 @@ body {
       ).then((widget) => {
         widget.on("newRTCSession", (session) => {
           session.on("newInfo", (infoEvent) => {
-            console.log("New info received:", JSON.stringify(infoEvent, null, 2));
+            console.log("New info received:", infoEvent?.data);
 
             const url = infoEvent?.info?.navigateTo;
             if(url){
