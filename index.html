@@ -102,9 +102,6 @@
       </div>
       <div class="source-badge">📡 via Cognigy.AI</div>
     </div>
-    <div class="url-debug" id="urlDebug">
-      <strong>QUERY PARAMS RECEIVED</strong>
-      <span id="urlDebugVal">—</span>
     </div>
     <div class="gifts-grid" id="giftsGrid"></div>
   </div>
@@ -118,9 +115,6 @@
       </div>
       <div class="source-badge">📡 via Cognigy.AI</div>
     </div>
-    <div class="url-debug" id="urlDebug">
-      <strong>QUERY PARAMS RECEIVED</strong>
-      <span id="urlDebugVal">—</span>
     </div>
     <div class="gifts-grid" id="giftsGrid"></div>
   </div>
@@ -257,12 +251,10 @@ function renderRewards() {
   const raw  = getIdsFromURL();
   const grid = document.getElementById('giftsGrid');
   const sub  = document.getElementById('rewardsSub');
-  const dbg  = document.getElementById('urlDebugVal');
 
   grid.innerHTML = '';
 
   if (!raw) {
-    dbg.textContent = 'No ids param received yet.  Expected: ?ids=p01,p03,p06';
     sub.textContent = 'Complete a voice session to see your recommendations';
     grid.innerHTML = `
       <div class="rewards-empty">
@@ -273,13 +265,11 @@ function renderRewards() {
     return;
   }
 
-  dbg.textContent = '?ids=' + raw;
 
   const ids   = raw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
   const found = ids.map(id => PRIZE_LIST.find(p => p.id === id)).filter(Boolean);
 
   if (!found.length) {
-    dbg.textContent += '  ← no matching IDs in catalog';
     grid.innerHTML = `
       <div class="rewards-empty">
         <div class="rewards-empty-icon">🤔</div>
@@ -334,6 +324,8 @@ window.addEventListener('load', () => {
     nav('rewards');
   } else if (hash.startsWith('#/profile')) {
     nav('profile');
+  } else if (hash.startsWith('#/checkout')) {
+    nav('checkout');
   } else {
     nav('home');
     // Also mark home link active
