@@ -178,11 +178,11 @@
       ).then((widget) => {
         widget.on("newRTCSession", (session) => {
           session.on("newInfo", (infoEvent) => {
-            console.log("infoEvent keys:", Object.keys(infoEvent);
+            console.log("infoEvent keys:", Object.keys(infoEvent));
             console.log("infoEvent._request:", infoEvent?._request);
             console.log("infoEvent._request?.body:", infoEvent._request?.body);
 
-            const url = infoEvent?.info?.navigateTo;
+            const url = infoEvent?.info?.navigateTo;)
             if(url){
               window.location.href = url;
             }
