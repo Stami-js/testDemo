@@ -25,7 +25,7 @@
     <button class="nav-link" data-page="checkout" onclick="nav('checkout')">Checkout</button>
     <button class="nav-link" data-page="profile" onclick="nav('profile')">Profile</button>
   </div>
-  <div class="pts-chip">585 PTS</div>
+  <div class="pts-chip">7850 PTS</div>
 </nav>
 
 <div id="app">
@@ -132,16 +132,16 @@
     <div class="profile-grid">
       <div class="profile-section">
         <div class="profile-section-title">Account details</div>
-        <div class="profile-row"><span class="pr-label">Username</span><span class="pr-value">demo</span></div>
-        <div class="profile-row"><span class="pr-label">Email</span><span class="pr-value">demo@velo-rewards.com</span></div>
+        <div class="profile-row"><span class="pr-label">Username</span><span class="pr-value">justinS</span></div>
+        <div class="profile-row"><span class="pr-label">Email</span><span class="pr-value">justin@velo-rewards.com</span></div>
         <div class="profile-row"><span class="pr-label">Phone</span><span class="pr-value">+1 (555) 012-3456</span></div>
         <div class="profile-row"><span class="pr-label">State</span><span class="pr-value">New York, NY</span></div>
         <div class="profile-row"><span class="pr-label">Age verified</span><span class="pr-value teal">✓ 21+</span></div>
       </div>
       <div class="profile-section">
         <div class="profile-section-title">Points summary</div>
-        <div class="profile-row"><span class="pr-label">Current balance</span><span class="pr-value teal">585 pts</span></div>
-        <div class="profile-row"><span class="pr-label">Lifetime earned</span><span class="pr-value">3,240 pts</span></div>
+        <div class="profile-row"><span class="pr-label">Current balance</span><span class="pr-value teal">7850 pts</span></div>
+        <div class="profile-row"><span class="pr-label">Lifetime earned</span><span class="pr-value">30,240 pts</span></div>
         <div class="profile-row"><span class="pr-label">Lifetime redeemed</span><span class="pr-value">2,655 pts</span></div>
         <div class="profile-row"><span class="pr-label">Codes this month</span><span class="pr-value">2 of 30</span></div>
         <div class="profile-row"><span class="pr-label">Member tier</span><span class="pr-value">Standard</span></div>
@@ -338,6 +338,7 @@ window.addEventListener('hashchange', () => {
   const hash = window.location.hash;
   if (hash.startsWith('#/rewards')) nav('rewards');
   else if (hash.startsWith('#/profile')) nav('profile');
+  else if (hash.startsWith('#/checkout')) nav('checkout');
   else nav('home');
 });
 </script>
