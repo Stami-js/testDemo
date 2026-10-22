@@ -1,165 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="batstyle.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VELO Rewards</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
-<div id="compliance">WARNING: This product contains nicotine. Nicotine is an addictive chemical.</div>
-<div id="compliance-strip">
+<!-- ── Icon sprite (24px grid, 1.5 stroke) ──────────── -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12M12 8C10.5 5 7 4.5 7 6.75 7 8 9.5 8 12 8zm0 0c1.5-3 5-3.5 5-1.25C17 8 14.5 8 12 8z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.25"/><path d="M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.2-7.5 9.5-4.3-1.3-7.5-5-7.5-9.5V6L12 3z"/><path d="M8.75 12l2.25 2.25 4.25-4.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1a1 1 0 0 1 .7.3l7.4 7.4a1 1 0 0 1 0 1.4l-8.1 8.1a1 1 0 0 1-1.4 0l-7.4-7.4a1 1 0 0 1-.3-.7z"/><circle cx="8" cy="8" r="1.25"/></symbol>
+  <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M7 3v8M4.5 3v5a2.5 2.5 0 0 0 5 0V3M7 11v10M17 21V3c-2.2 1.2-3.5 3.8-3.5 7v3H17"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8.5 3.5 4 5.5 2.5 10l3 1v9.5h13V11l3-1L20 5.5l-4.5-2C14.9 5 13.5 6 12 6S9.1 5 8.5 3.5z"/></symbol>
+  <symbol id="i-hammer" viewBox="0 0 24 24"><path d="M13.5 8.5 4.2 17.8a1.8 1.8 0 0 0 2.5 2.5l9.3-9.3"/><path d="M11 6l3-3 7 7-3 3z"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+  <symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="12" rx="2"/><path d="M8 3l4 3.5L16 3M8 21h8"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 8.5V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a3.5 3.5 0 0 0 0 7V18a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a3.5 3.5 0 0 0 0-7zM14 5v2M14 11v2M14 17v2"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0V4zM8 6H4.5v1.5A3.5 3.5 0 0 0 8 11M16 6h3.5v1.5A3.5 3.5 0 0 1 16 11M12 13v4M8.5 20.5h7M9.5 20.5c0-2 1-3.5 2.5-3.5s2.5 1.5 2.5 3.5"/></symbol>
+  <symbol id="i-fuel" viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M3 21h12M4 10h10M14 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M4.75 17.5H2.5v-11h11v11H8.25M13.5 9.5h4l3.5 3.5v4.5h-2.25M13.5 17.5h1.75"/><circle cx="6.5" cy="17.5" r="1.75"/><circle cx="17" cy="17.5" r="1.75"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6 15h4"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.2 10.5a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6"/><circle cx="9.5" cy="19.5" r="1.25"/><circle cx="17" cy="19.5" r="1.25"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 10.5 12 4l8.5 6.5M5.5 9v11h13V9M10 20v-5.5h4V20"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="6.5" cy="10" r="1.75"/><circle cx="10" cy="6" r="1.75"/><circle cx="14.5" cy="6" r="1.75"/><circle cx="18" cy="10" r="1.75"/><path d="M8.5 19.5c-2 0-2.5-2.2-1.2-3.6l2.6-2.8a2.6 2.6 0 0 1 3.9.1l2.4 2.8c1.2 1.4.6 3.5-1.3 3.5-1.2 0-2-.6-2.9-.6s-1.8.6-3.5.6z"/></symbol>
+</svg>
+
+<div id="compliance" class="compliance" role="note">WARNING: This product contains nicotine. Nicotine is an addictive chemical.</div>
+<div id="compliance-strip" class="compliance-strip" role="note">
   <span>UNDERAGE SALE PROHIBITED</span>
   <span>NICOTINE POUCHES</span>
 </div>
 
-<nav id="topnav">
-  <div class="nav-logo" onclick="nav('home')">V<span>ELO</span></div>
-  <div class="nav-links">
-    <button class="nav-link" data-page="home"    onclick="nav('home')">Home</button>
-    <button class="nav-link" data-page="rewards" onclick="nav('rewards')">My Rewards</button>
-    <button class="nav-link" data-page="checkout" onclick="nav('checkout')">Checkout</button>
-    <button class="nav-link" data-page="profile" onclick="nav('profile')">Profile</button>
+<header id="topnav" class="topnav">
+  <div class="topnav-inner">
+    <button type="button" class="nav-logo" onclick="nav('home')" aria-label="VELO Rewards home">V<span>ELO</span></button>
+    <nav class="nav-links" aria-label="Main">
+      <button type="button" class="nav-link" data-page="home"     onclick="nav('home')">Home</button>
+      <button type="button" class="nav-link" data-page="rewards"  onclick="nav('rewards')">My Rewards</button>
+      <button type="button" class="nav-link" data-page="checkout" onclick="nav('checkout')">Checkout</button>
+      <button type="button" class="nav-link" data-page="profile"  onclick="nav('profile')">Profile</button>
+    </nav>
+    <div class="pts-chip"><span data-member-points>7900</span> PTS</div>
   </div>
-  <div class="pts-chip">7850 PTS</div>
-</nav>
+</header>
 
-<div id="app">
+<main id="app">
 
   <!-- ══ HOME ══════════════════════════════════════════ -->
-  <div class="page active" id="page-home">
+  <section class="page active" id="page-home" aria-labelledby="home-title">
 
     <div class="home-hero">
       <div class="hero-left">
-        <div class="hero-greeting">Welcome back,</div>
-        <div class="hero-name">Justin Stark</div>
-        <div class="hero-meta">Member since Jan 2023 · Age verified 21+</div>
+        <p class="hero-greeting">Welcome back,</p>
+        <h1 class="hero-name" id="home-title">Justin Stark</h1>
+        <p class="hero-meta">
+          <svg class="icon icon-sm" aria-hidden="true"><use href="#i-shield"/></svg>
+          Member since Jan 2023 · Age verified 21+
+        </p>
       </div>
-      <div class="hero-right">
-        <div class="hero-pts-label">YOUR BALANCE</div>
-        <div class="hero-pts">7850</div>
-        <div class="hero-pts-unit">points</div>
+
+      <div class="member-card">
+        <div class="member-card-top" aria-hidden="true">
+          <span class="member-card-brand">V<span>ELO</span></span>
+          <span class="member-card-chip"></span>
+        </div>
+        <div class="hero-right">
+          <div class="hero-pts-label">YOUR BALANCE</div>
+          <div class="hero-pts" data-member-points data-countup>7900</div>
+          <div class="hero-pts-unit">points</div>
+        </div>
       </div>
     </div>
 
     <div class="home-actions">
-      <div class="action-card" onclick="nav('rewards')">
-        <div class="action-icon">🎁</div>
-        <div class="action-title">My Rewards</div>
-        <div class="action-desc">Browse your personalized gift catalog from your last voice session.</div>
-        <div class="action-arrow">→</div>
-      </div>
-      <div class="action-card" onclick="nav('profile')">
-        <div class="action-icon">👤</div>
-        <div class="action-title">Profile</div>
-        <div class="action-desc">View your account details, points history and preferences.</div>
-        <div class="action-arrow">→</div>
-      </div>
-      <div class="action-card" onclick="triggerCTC()">
-        <div class="action-icon">🎙️</div>
-        <div class="action-title">Voice Concierge</div>
-        <div class="action-desc">Speak with your AI rewards assistant to redeem points by voice.</div>
-        <div class="action-arrow">→</div>
-      </div>
+      <button type="button" class="action-card" onclick="nav('rewards')">
+        <span class="icon-tile"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-gift"/></svg></span>
+        <span class="action-title">My Rewards</span>
+        <span class="action-desc">Browse your personalized gift catalog from your last voice session.</span>
+        <svg class="icon action-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+      <button type="button" class="action-card" onclick="nav('profile')">
+        <span class="icon-tile"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-user"/></svg></span>
+        <span class="action-title">Profile</span>
+        <span class="action-desc">View your account details, points history and preferences.</span>
+        <svg class="icon action-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
+      <button type="button" class="action-card" onclick="triggerCTC()">
+        <span class="icon-tile"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-mic"/></svg></span>
+        <span class="action-title">Voice Concierge</span>
+        <span class="action-desc">Speak with your AI rewards assistant to redeem points by voice.</span>
+        <svg class="icon action-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </button>
     </div>
 
-    <div class="home-activity">
-      <div class="section-title">Recent activity</div>
-      <div class="activity-row">
-        <div class="activity-dot earn"></div>
-        <div class="activity-text">Tobacco Preference Survey<div class="activity-sub">Sep 14, 2026</div></div>
-        <div class="activity-pts earn">+100 pts</div>
+    <section class="home-activity card" aria-labelledby="activity-title">
+      <div class="section-head">
+        <h2 class="section-title" id="activity-title">Recent activity</h2>
       </div>
-      <div class="activity-row">
-        <div class="activity-dot earn"></div>
-        <div class="activity-text">Pack code — Citrus Chill<div class="activity-sub">Sep 12, 2026</div></div>
-        <div class="activity-pts earn">+35 pts</div>
-      </div>
-      <div class="activity-row">
-        <div class="activity-dot earn"></div>
-        <div class="activity-text">Short video — Product spotlight<div class="activity-sub">Sep 10, 2026</div></div>
-        <div class="activity-pts earn">+150 pts</div>
-      </div>
-      <div class="activity-row">
-        <div class="activity-dot redeem"></div>
-        <div class="activity-text">VELO Mobile Coupon redeemed<div class="activity-sub">Aug 28, 2026</div></div>
-        <div class="activity-pts redeem">−550 pts</div>
-      </div>
-    </div>
+      <ol class="activity-list">
+        <li class="activity-row">
+          <span class="activity-dot earn" aria-hidden="true"></span>
+          <div class="activity-text"><span class="activity-sub">Sep 14, 2026</span><span class="activity-title">Tobacco Preference Survey</span></div>
+          <span class="activity-pts earn">+100 pts</span>
+        </li>
+        <li class="activity-row">
+          <span class="activity-dot earn" aria-hidden="true"></span>
+          <div class="activity-text"><span class="activity-sub">Sep 12, 2026</span><span class="activity-title">Pack code — Citrus Chill</span></div>
+          <span class="activity-pts earn">+35 pts</span>
+        </li>
+        <li class="activity-row">
+          <span class="activity-dot earn" aria-hidden="true"></span>
+          <div class="activity-text"><span class="activity-sub">Sep 10, 2026</span><span class="activity-title">Short video — Product spotlight</span></div>
+          <span class="activity-pts earn">+150 pts</span>
+        </li>
+        <li class="activity-row">
+          <span class="activity-dot redeem" aria-hidden="true"></span>
+          <div class="activity-text"><span class="activity-sub">Aug 28, 2026</span><span class="activity-title">VELO Mobile Coupon redeemed</span></div>
+          <span class="activity-pts redeem">−550 pts</span>
+        </li>
+      </ol>
+    </section>
 
-  </div>
+  </section>
 
   <!-- ══ REWARDS ════════════════════════════════════════ -->
-  <div class="page" id="page-rewards">
+  <section class="page" id="page-rewards" aria-labelledby="rewards-title">
     <div class="rewards-header">
       <div>
-        <div class="rewards-title">Your Personalized Rewards</div>
-        <div class="rewards-sub" id="rewardsSub">Recommended by your Voice Concierge session</div>
+        <h1 class="rewards-title" id="rewards-title">Your Personalized Rewards</h1>
+        <p class="rewards-sub" id="rewardsSub">Recommended by your Voice Concierge session</p>
       </div>
-      <div class="source-badge">📡 via Cognigy.AI</div>
-    </div>
+      <div class="source-badge"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-signal"/></svg>via Cognigy.AI</div>
     </div>
     <div class="gifts-grid" id="giftsGrid"></div>
-  </div>
+  </section>
 
-  <!-- ══ Checkout ════════════════════════════════════════ -->
-  <div class="page" id="page-checkout">
+  <!-- ══ CHECKOUT ═══════════════════════════════════════ -->
+  <section class="page" id="page-checkout" aria-labelledby="checkout-title">
     <div class="rewards-header">
       <div>
-        <div class="rewards-title">Checkout</div>
-        <div class="rewards-sub" id="rewardsSub">Review your selected rewards before redeeming</div>
+        <h1 class="rewards-title" id="checkout-title">Checkout</h1>
+        <p class="rewards-sub" id="checkoutSub">Review your selected rewards before redeeming</p>
       </div>
-      <div class="source-badge">📡 via Cognigy.AI</div>
+      <div class="source-badge"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-signal"/></svg>via Cognigy.AI</div>
     </div>
+    <div class="checkout-layout">
+      <div class="gifts-grid checkout-items" id="checkoutGrid"></div>
+      <aside class="checkout-summary card" aria-labelledby="summary-title">
+        <h2 class="section-title" id="summary-title">Summary</h2>
+        <dl>
+          <div class="profile-row"><dt class="pr-label">Current balance</dt><dd class="pr-value" id="sumBalance">—</dd></div>
+          <div class="profile-row"><dt class="pr-label">Selected rewards</dt><dd class="pr-value" id="sumTotal">—</dd></div>
+          <div class="summary-total"><dt class="summary-total-label">Balance after</dt><dd class="summary-total-value" id="sumAfter">—</dd></div>
+        </dl>
+        <button type="button" class="btn btn-primary btn-block" id="redeemBtn" onclick="triggerCTC()">
+          <svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>
+          Redeem by voice
+          <svg class="icon icon-sm icon-trail" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </button>
+        <p class="summary-note" id="sumNote" aria-live="polite"></p>
+      </aside>
     </div>
-    <div class="gifts-grid" id="giftsGrid"></div>
-  </div>
+  </section>
 
   <!-- ══ PROFILE ════════════════════════════════════════ -->
-  <div class="page" id="page-profile">
+  <section class="page" id="page-profile" aria-labelledby="profile-title">
     <div class="profile-hero">
-      <div class="profile-avatar-lg">D</div>
+      <div class="profile-avatar-lg" aria-hidden="true">J</div>
       <div>
-        <div class="profile-hero-name">Justin Stark</div>
-        <div class="profile-hero-email">justin_stark@velo-rewards.com</div>
-        <div class="profile-hero-meta">Member since January 2023 · Age verified 21+ · US resident</div>
+        <h1 class="profile-hero-name" id="profile-title">Justin Stark</h1>
+        <p class="profile-hero-email">justin_stark@velo-rewards.com</p>
+        <p class="profile-hero-meta">Member since January 2023 · Age verified 21+ · US resident</p>
       </div>
     </div>
     <div class="profile-grid">
-      <div class="profile-section">
-        <div class="profile-section-title">Account details</div>
-        <div class="profile-row"><span class="pr-label">Username</span><span class="pr-value">justinS</span></div>
-        <div class="profile-row"><span class="pr-label">Email</span><span class="pr-value">justin@velo-rewards.com</span></div>
-        <div class="profile-row"><span class="pr-label">Phone</span><span class="pr-value">+1 (555) 012-3456</span></div>
-        <div class="profile-row"><span class="pr-label">State</span><span class="pr-value">New York, NY</span></div>
-        <div class="profile-row"><span class="pr-label">Age verified</span><span class="pr-value teal">✓ 21+</span></div>
-      </div>
-      <div class="profile-section">
-        <div class="profile-section-title">Points summary</div>
-        <div class="profile-row"><span class="pr-label">Current balance</span><span class="pr-value teal">7850 pts</span></div>
-        <div class="profile-row"><span class="pr-label">Lifetime earned</span><span class="pr-value">30,240 pts</span></div>
-        <div class="profile-row"><span class="pr-label">Lifetime redeemed</span><span class="pr-value">2,655 pts</span></div>
-        <div class="profile-row"><span class="pr-label">Codes this month</span><span class="pr-value">2 of 30</span></div>
-        <div class="profile-row"><span class="pr-label">Member tier</span><span class="pr-value">Standard</span></div>
-      </div>
-      <div class="profile-section">
-        <div class="profile-section-title">Preferences</div>
-        <div class="profile-row"><span class="pr-label">Favourite flavour</span><span class="pr-value">Citrus Chill</span></div>
-        <div class="profile-row"><span class="pr-label">Strength</span><span class="pr-value">6mg</span></div>
-        <div class="profile-row"><span class="pr-label">Communication</span><span class="pr-value">Email + SMS</span></div>
-        <div class="profile-row"><span class="pr-label">Reward preference</span><span class="pr-value">Gift cards</span></div>
-      </div>
-      <div class="profile-section" style="display:flex;flex-direction:column;gap:10px;justify-content:center;">
-        <button onclick="nav('rewards')" style="background:none;border:1.5px solid var(--border);border-radius:10px;padding:11px 18px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;transition:border-color .15s,color .15s;color:var(--text)" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">View my rewards</button>
+      <section class="profile-section card" aria-labelledby="ps-account">
+        <h2 class="profile-section-title" id="ps-account">Account details</h2>
+        <dl>
+          <div class="profile-row"><dt class="pr-label">Username</dt><dd class="pr-value">justinS</dd></div>
+          <div class="profile-row"><dt class="pr-label">Email</dt><dd class="pr-value">justin_stark@velo-rewards.com</dd></div>
+          <div class="profile-row"><dt class="pr-label">Phone</dt><dd class="pr-value">+1 (555) 012-3456</dd></div>
+          <div class="profile-row"><dt class="pr-label">State</dt><dd class="pr-value">New York, NY</dd></div>
+          <div class="profile-row"><dt class="pr-label">Age verified</dt><dd class="pr-value teal">✓ 21+</dd></div>
+        </dl>
+      </section>
+      <section class="profile-section card" aria-labelledby="ps-points">
+        <h2 class="profile-section-title" id="ps-points">Points summary</h2>
+        <dl>
+          <div class="profile-row"><dt class="pr-label">Current balance</dt><dd class="pr-value teal"><span data-member-points>7900</span> pts</dd></div>
+          <div class="profile-row"><dt class="pr-label">Lifetime earned</dt><dd class="pr-value">30,240 pts</dd></div>
+          <div class="profile-row"><dt class="pr-label">Lifetime redeemed</dt><dd class="pr-value">22,340 pts</dd></div>
+          <div class="profile-row"><dt class="pr-label">Codes this month</dt><dd class="pr-value">2 of 30</dd></div>
+          <div class="profile-row"><dt class="pr-label">Member tier</dt><dd class="pr-value"><span class="badge tier-badge">Standard</span></dd></div>
+        </dl>
+      </section>
+      <section class="profile-section card" aria-labelledby="ps-prefs">
+        <h2 class="profile-section-title" id="ps-prefs">Preferences</h2>
+        <dl>
+          <div class="profile-row"><dt class="pr-label">Favourite flavour</dt><dd class="pr-value">Citrus Chill</dd></div>
+          <div class="profile-row"><dt class="pr-label">Strength</dt><dd class="pr-value">6mg</dd></div>
+          <div class="profile-row"><dt class="pr-label">Communication</dt><dd class="pr-value">Email + SMS</dd></div>
+          <div class="profile-row"><dt class="pr-label">Reward preference</dt><dd class="pr-value">Gift cards</dd></div>
+        </dl>
+      </section>
+      <div class="profile-section profile-cta card">
+        <span class="icon-tile"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-gift"/></svg></span>
+        <button type="button" class="btn btn-secondary" onclick="nav('rewards')">
+          View my rewards
+          <svg class="icon icon-sm icon-trail" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </button>
       </div>
     </div>
-  </div>
+  </section>
 
-</div><!-- /app -->
+</main><!-- /app -->
 
 <!-- ── Cognigy Click-to-Call widget ──────────────────── -->
 <div id="ctc-wrapper"></div>
@@ -171,9 +240,28 @@
         "https://endpoint-trial.cognigy.ai/50d9c7d030fcacc1bfe5767ac8139ca893fd37cfde060b5e8e7f5590122b5c0b"
       ).then((widget) => {
         widget.on("newRTCSession", (session) => {
+          // Hand the member data to the Cognigy flow once the call is up
+          // (SIP INFO, data-only — arrives in the flow as input.data)
+          let contextSent = false;
+          const sendContext = () => {
+            if (contextSent) return;
+            try {
+              session.sendInfo("", { veloContext: buildCognigyContext() });
+              contextSent = true;
+              console.log("Sent member context to Cognigy");
+            } catch (e) {
+              console.log("Could not send context to Cognigy: ", e);
+            }
+          };
+          session.on("accepted", sendContext);
+          session.on("answered", sendContext);
+
           session.on("newInfo", (infoEvent) => {
             try {
               const body = JSON.parse(infoEvent.request.body);
+              if (body.pointBalance !== undefined) {
+                setMemberPoints(body.pointBalance);
+              }
               if(body.navigateTo){
                 window.location.href = body.navigateTo;
               }
@@ -209,21 +297,65 @@ const PRIZE_LIST = [
   { id: 'p16', name: 'PetSmart Digital Gift Card',              type: 'Pet supplies and services',             points: 2500,  icon: '🐾' },
 ];
 
-const MEMBER_POINTS = 585;
+// SVG sprite symbol per prize (replaces the emoji in PRIZE_LIST for display)
+const PRIZE_ICONS = {
+  p01: 'i-tag',    p02: 'i-utensils', p03: 'i-shirt',  p04: 'i-hammer',
+  p05: 'i-wrench', p06: 'i-film',     p07: 'i-shirt',  p08: 'i-tv',
+  p09: 'i-ticket', p10: 'i-trophy',   p11: 'i-fuel',   p12: 'i-truck',
+  p13: 'i-card',   p14: 'i-cart',     p15: 'i-home',   p16: 'i-paw',
+};
+
+// Single source of truth for the balance — every [data-member-points]
+// element on the page is filled from this value. Cognigy can update it
+// during a call via setMemberPoints().
+let MEMBER_POINTS = 7900;
+
+const MEMBER_FIRST_NAME = 'Justin';
+
+// Ways to earn points — used by the Voice Concierge
+const WAYS_OF_WINNING = [
+  { action: 'Watch a short promotional video',       points: 100,  oneTime: false },
+  { action: 'Write a product review',                points: 250,  oneTime: true  },
+  { action: 'Complete your profile information',     points: 500,  oneTime: true  },
+  { action: 'Answer a quick survey',                 points: 150,  oneTime: false },
+  { action: 'Refer a friend who creates an account', points: 1000, oneTime: false },
+];
+
+// ─── Cognigy context (sent to the flow at call start) ────────────────────
+function buildCognigyContext() {
+  return {
+    username:      MEMBER_FIRST_NAME,
+    pointBalance:  String(MEMBER_POINTS),
+    prizeList:     PRIZE_LIST.map(({ id, name, type, points }) => ({ id, name, type, points })),
+    waysOfwinning: WAYS_OF_WINNING,
+  };
+}
+
+const icon = (id, cls = 'icon') =>
+  `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
 
 // ─── Router ───────────────────────────────────────────────────────────────
 function nav(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.remove('active');
+    l.removeAttribute('aria-current');
+  });
   document.getElementById('page-' + page).classList.add('active');
   const link = document.querySelector(`.nav-link[data-page="${page}"]`);
-  if (link) link.classList.add('active');
+  if (link) {
+    link.classList.add('active');
+    link.setAttribute('aria-current', 'page');
+  }
 
-  if (page === 'rewards') renderRewards();
-  if (page === 'checkout') renderRewards();
+  if (page === 'rewards') renderRewards('giftsGrid', 'rewardsSub');
+  if (page === 'checkout') renderCheckoutSummary(renderRewards('checkoutGrid', 'checkoutSub'));
 
-  // Update hash without triggering hashchange loop
-  history.replaceState(null, '', window.location.pathname + window.location.search + '#/' + page);
+  // Update hash without triggering hashchange loop; keep ?ids= so the
+  // Voice Concierge selection survives moving between pages
+  const ids = getIdsFromURL();
+  const query = ids && !new URLSearchParams(window.location.search).get('ids') ? '?ids=' + ids : '';
+  history.replaceState(null, '', window.location.pathname + window.location.search + '#/' + page + query);
 }
 
 // ─── Rewards renderer ─────────────────────────────────────────────────────
@@ -247,10 +379,11 @@ function getIdsFromURL() {
   return '';
 }
 
-function renderRewards() {
+// Renders the gifts into the given grid and returns the matched prizes.
+function renderRewards(gridId, subId) {
   const raw  = getIdsFromURL();
-  const grid = document.getElementById('giftsGrid');
-  const sub  = document.getElementById('rewardsSub');
+  const grid = document.getElementById(gridId);
+  const sub  = document.getElementById(subId);
 
   grid.innerHTML = '';
 
@@ -258,11 +391,11 @@ function renderRewards() {
     sub.textContent = 'Complete a voice session to see your recommendations';
     grid.innerHTML = `
       <div class="rewards-empty">
-        <div class="rewards-empty-icon">🎁</div>
+        <div class="rewards-empty-icon">${icon('i-gift')}</div>
         <div class="rewards-empty-title">No rewards yet</div>
         <p>Speak with your Voice Concierge — your personalized gift list will appear here.</p>
       </div>`;
-    return;
+    return [];
   }
 
 
@@ -272,31 +405,24 @@ function renderRewards() {
   if (!found.length) {
     grid.innerHTML = `
       <div class="rewards-empty">
-        <div class="rewards-empty-icon">🤔</div>
+        <div class="rewards-empty-icon">${icon('i-search')}</div>
         <div class="rewards-empty-title">No matching rewards</div>
         <p>The IDs received didn't match the catalog. Check the Cognigy flow output.</p>
       </div>`;
-    return;
+    return [];
   }
 
   sub.textContent = `${found.length} reward${found.length > 1 ? 's' : ''} recommended by your Voice Concierge`;
 
-  // Pastel backgrounds cycling per card
-  const palettes = [
-    '#e6f4ff','#e6fff4','#fff8e6','#f4e6ff','#ffe6e6',
-    '#e6fffa','#fff0e6','#f0f4ff','#e6ffe6','#ffe6f4',
-  ];
-
   found.forEach((gift, i) => {
     const canAfford = MEMBER_POINTS >= gift.points;
-    const bg = palettes[i % palettes.length];
-    const card = document.createElement('div');
-    card.className = 'gift-card';
-    card.style.animationDelay = (i * 55) + 'ms';
+    const card = document.createElement('article');
+    card.className = 'gift-card' + (canAfford ? '' : ' is-locked');
+    card.style.setProperty('--i', i);
     card.innerHTML = `
-      <div class="gift-card-img" style="background:${bg}">${gift.icon}</div>
+      <div class="gift-card-img"><span class="icon-wrap">${icon(PRIZE_ICONS[gift.id] || 'i-gift', 'icon icon-lg')}</span></div>
       <div class="gift-card-body">
-        <div class="gift-card-name">${gift.name}</div>
+        <h3 class="gift-card-name">${gift.name}</h3>
         <div class="gift-card-type">${gift.type}</div>
         <div class="gift-card-footer">
           <span class="pts-needed">From ${gift.points.toLocaleString()} pts</span>
@@ -305,12 +431,77 @@ function renderRewards() {
       </div>`;
     grid.appendChild(card);
   });
+
+  return found;
+}
+
+// ─── Checkout summary (display only — redemption happens by voice) ───────
+function renderCheckoutSummary(items) {
+  const fmt   = n => n.toLocaleString() + ' pts';
+  const total = items.reduce((sum, g) => sum + g.points, 0);
+  const after = MEMBER_POINTS - total;
+  const short = after < 0;
+
+  document.getElementById('sumBalance').textContent = fmt(MEMBER_POINTS);
+  document.getElementById('sumTotal').textContent   = items.length ? '−' + fmt(total) : fmt(0);
+  const afterEl = document.getElementById('sumAfter');
+  afterEl.textContent = (short ? '−' : '') + fmt(Math.abs(after));
+  afterEl.classList.toggle('is-short', short);
+
+  document.getElementById('redeemBtn').disabled = !items.length || short;
+  document.getElementById('sumNote').textContent =
+    !items.length ? 'No rewards selected yet.'
+    : short       ? 'Not enough points for the selected rewards.'
+    :               'Your Voice Concierge will confirm the redemption.';
+}
+
+// ─── Balance count-up ─────────────────────────────────────────────────────
+function countUp(el, from = 0) {
+  const target = parseInt(el.textContent, 10);
+  cancelAnimationFrame(el.countUpFrame); // a newer update wins over a running animation
+  clearTimeout(el.countUpDone);
+  if (!target || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const duration = 900;
+  // Guarantee the final value even if frames are throttled (background tab)
+  el.countUpDone = setTimeout(() => {
+    cancelAnimationFrame(el.countUpFrame);
+    el.textContent = target;
+  }, duration + 100);
+  const start = performance.now();
+  const step = now => {
+    const t = Math.min((now - start) / duration, 1);
+    el.textContent = Math.round(from + (target - from) * (1 - Math.pow(1 - t, 3)));
+    if (t < 1) el.countUpFrame = requestAnimationFrame(step);
+  };
+  el.textContent = from;
+  el.countUpFrame = requestAnimationFrame(step);
+}
+
+// ─── Live balance update (pushed by Cognigy after the "change" tool) ─────
+function setMemberPoints(value) {
+  const next = Math.round(Number(value));
+  if (!Number.isFinite(next) || next === MEMBER_POINTS) return;
+  const prev = MEMBER_POINTS;
+  MEMBER_POINTS = next;
+
+  document.querySelectorAll('[data-member-points]').forEach(el => { el.textContent = next; });
+  document.querySelectorAll('[data-countup]').forEach(el => countUp(el, prev));
+
+  const chip = document.querySelector('.pts-chip');
+  chip.classList.remove('is-updated');
+  void chip.offsetWidth; // restart the highlight animation
+  chip.classList.add('is-updated');
+
+  // Affordability and checkout totals follow the new balance
+  const active = document.querySelector('.page.active').id;
+  if (active === 'page-rewards') renderRewards('giftsGrid', 'rewardsSub');
+  if (active === 'page-checkout') renderCheckoutSummary(renderRewards('checkoutGrid', 'checkoutSub'));
 }
 
 // ─── CTC helper (action card click) ──────────────────────────────────────
 function triggerCTC() {
   // Try to programmatically click the Cognigy widget button if it rendered
-  const btn = document.querySelector('[class*="cognigy"], [id*="cognigy"], [class*="ctc"], [id*="ctc"], button[class*="webrtc"]');
+  const btn = document.querySelector('button[data-testid="cognigy-call-button"], button.webrtc_widget_call_button');
   if (btn) { btn.click(); return; }
   // Fallback — widget may still be loading
   alert('Voice Concierge is loading. Please try the microphone button in the bottom-right corner.');
@@ -331,6 +522,8 @@ window.addEventListener('load', () => {
     // Also mark home link active
     document.querySelector('.nav-link[data-page="home"]').classList.add('active');
   }
+  document.querySelectorAll('[data-member-points]').forEach(el => { el.textContent = MEMBER_POINTS; });
+  document.querySelectorAll('[data-countup]').forEach(countUp);
 });
 
 // React if Cognigy changes the URL hash after page load
